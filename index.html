@@ -456,6 +456,1052 @@
             
             setTimeout(() => {
                 notification.classList.remove('show');
+            }, 3000)
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation & Comics Hub - Share Your Work</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff2d75;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,45,117,0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,45,117,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-info {
+            padding: 1.5rem;
+        }
+
+        .item-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .item-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 1rem;
+        }
+
+        .privacy-badge {
+            background: #e9ecef;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .privacy-public {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .privacy-private {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .delete-btn:hover {
+            background: #ff3742;
+        }
+
+        .auth-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .auth-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.8rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .switch-auth {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .switch-auth a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .upload-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+        }
+
+        .upload-form {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .privacy-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .privacy-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .privacy-option input {
+            display: none;
+        }
+
+        .privacy-option label {
+            display: block;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-option input:checked + label {
+            border-color: var(--primary);
+            background: rgba(106, 17, 203, 0.1);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            grid-column: 1 / -1;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-explorer {
+            border: 2px dashed #e1e5e9;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-explorer:hover {
+            border-color: var(--primary);
+            background: rgba(106, 17, 203, 0.05);
+        }
+
+        .file-explorer.dragover {
+            border-color: var(--primary);
+            background: rgba(106, 17, 203, 0.1);
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .file-preview img,
+        .file-preview video {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .privacy-options {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation for items */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gallery-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: #4cd964;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #ff4757;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">🎨</span>
+                <span>Creative Hub</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#discover">Discover</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#my-works">My Works</a></li>
+                <li id="auth-links">
+                    <a href="#login" class="btn btn-secondary" id="login-btn">Login</a>
+                    <a href="#signup" class="btn" id="signup-btn">Sign Up</a>
+                </li>
+                <li id="user-links" class="hidden">
+                    <div class="user-info">
+                        <span id="username-display">User</span>
+                        <button class="btn-secondary" onclick="logout()">Logout</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Share Your Animations & Comics</h1>
+        <p>Join our creative community. Share your work with the world or keep it private.</p>
+        <a href="#signup" class="btn">Join Now</a>
+        <a href="#discover" class="btn btn-secondary">Discover Content</a>
+    </section>
+
+    <div class="container">
+        <!-- Login Section -->
+        <section class="section hidden" id="login-section">
+            <h2 class="section-title">Login to Your Account</h2>
+            <div class="auth-section">
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Login</button>
+                    </div>
+                </form>
+                <div class="switch-auth">
+                    <p>Don't have an account? <a href="#signup" onclick="showSignup()">Sign up here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signup Section -->
+        <section class="section hidden" id="signup-section">
+            <h2 class="section-title">Create Your Account</h2>
+            <div class="auth-section">
+                <form class="auth-form" id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" required placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" required placeholder="Confirm your password">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Create Account</button>
+                    </div>
+                </form>
+                <div class="switch-auth">
+                    <p>Already have an account? <a href="#login" onclick="showLogin()">Login here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discover Section (Public Content) -->
+        <section class="section" id="discover">
+            <h2 class="section-title">Discover Public Content</h2>
+            <div class="gallery" id="public-gallery">
+                <div class="empty-state" id="public-empty">
+                    <h3>No public content yet</h3>
+                    <p>Be the first to share your work publicly!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Works Section (User's Content) -->
+        <section class="section hidden" id="my-works-section">
+            <h2 class="section-title">My Works</h2>
+            <div class="gallery" id="my-works-gallery">
+                <div class="empty-state" id="my-works-empty">
+                    <h3>You haven't uploaded anything yet</h3>
+                    <p>Start sharing your animations and comics!</p>
+                    <a href="#upload" class="btn">Upload Your First Work</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="section hidden" id="upload-section">
+            <h2 class="section-title">Upload Your Work</h2>
+            <div class="upload-section">
+                <form class="upload-form" id="upload-form">
+                    <div class="form-group">
+                        <label for="work-type">Type of Work</label>
+                        <select id="work-type" required>
+                            <option value="">Select type</option>
+                            <option value="animation">Animation</option>
+                            <option value="comic">Comic</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" required placeholder="Enter a title for your work">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" placeholder="Describe your work"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Privacy Setting</label>
+                        <div class="privacy-options">
+                            <div class="privacy-option">
+                                <input type="radio" id="privacy-public" name="privacy" value="public" checked>
+                                <label for="privacy-public">Public</label>
+                            </div>
+                            <div class="privacy-option">
+                                <input type="radio" id="privacy-private" name="privacy" value="private">
+                                <label for="privacy-private">Private</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload File</label>
+                        <div class="file-explorer" id="file-explorer">
+                            <h3>📁 Click to browse or drag & drop files</h3>
+                            <p>Supported formats: MP4, WebM, JPG, PNG, WebP (Max 10MB)</p>
+                            <input type="file" id="file" accept=".mp4,.webm,.jpg,.jpeg,.png,.webp" hidden required>
+                        </div>
+                        <div class="file-preview" id="file-preview"></div>
+                    </div>
+
+                    <button type="submit" class="btn">Upload Work</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>Animation & Comics Hub</h3>
+            <p>Share your creativity with the world</p>
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">📷</a>
+                <a href="#">🎬</a>
+            </div>
+            <p>&copy; 2024 Creative Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Data storage
+        let users = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let works = JSON.parse(localStorage.getItem('works')) || [];
+
+        // Initialize the app
+        function initApp() {
+            updateUI();
+            initGalleries();
+            setupFileExplorer();
+            setupNavigation();
+        }
+
+        // Update UI based on authentication
+        function updateUI() {
+            const authLinks = document.getElementById('auth-links');
+            const userLinks = document.getElementById('user-links');
+            const loginSection = document.getElementById('login-section');
+            const signupSection = document.getElementById('signup-section');
+            const uploadSection = document.getElementById('upload-section');
+            const myWorksSection = document.getElementById('my-works-section');
+            const usernameDisplay = document.getElementById('username-display');
+
+            if (currentUser) {
+                authLinks.classList.add('hidden');
+                userLinks.classList.remove('hidden');
+                uploadSection.classList.remove('hidden');
+                myWorksSection.classList.remove('hidden');
+                loginSection.classList.add('hidden');
+                signupSection.classList.add('hidden');
+                usernameDisplay.textContent = currentUser.username;
+            } else {
+                authLinks.classList.remove('hidden');
+                userLinks.classList.add('hidden');
+                uploadSection.classList.add('hidden');
+                myWorksSection.classList.add('hidden');
+            }
+        }
+
+        // Setup file explorer
+        function setupFileExplorer() {
+            const fileExplorer = document.getElementById('file-explorer');
+            const fileInput = document.getElementById('file');
+            const filePreview = document.getElementById('file-preview');
+
+            fileExplorer.addEventListener('click', () => fileInput.click());
+            
+            fileExplorer.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileExplorer.classList.add('dragover');
+            });
+
+            fileExplorer.addEventListener('dragleave', () => {
+                fileExplorer.classList.remove('dragover');
+            });
+
+            fileExplorer.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileExplorer.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect(e.dataTransfer.files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelect(file) {
+            const filePreview = document.getElementById('file-preview');
+            filePreview.innerHTML = '';
+
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                filePreview.appendChild(img);
+            } else if (file.type.startsWith('video/')) {
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.controls = true;
+                filePreview.appendChild(video);
+            }
+
+            filePreview.innerHTML += `<p><strong>Selected:</strong> ${file.name}</p>`;
+        }
+
+        // Setup navigation
+        function setupNavigation() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    if (targetId === 'login') {
+                        showLogin();
+                    } else if (targetId === 'signup') {
+                        showSignup();
+                    } else {
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        // Show login form
+        function showLogin() {
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('signup-section').classList.add('hidden');
+        }
+
+        // Show signup form
+        function showSignup() {
+            document.getElementById('signup-section').classList.remove('hidden');
+            document.getElementById('login-section').classList.add('hidden');
+        }
+
+        // Initialize galleries
+        function initGalleries() {
+            updatePublicGallery();
+            updateMyWorksGallery();
+        }
+
+        // Update public gallery
+        function updatePublicGallery() {
+            const publicGallery = document.getElementById('public-gallery');
+            const publicEmpty = document.getElementById('public-empty');
+            
+            publicGallery.innerHTML = '';
+            publicGallery.appendChild(publicEmpty);
+
+            const publicWorks = works.filter(work => work.privacy === 'public');
+            
+            if (publicWorks.length === 0) {
+                publicEmpty.style.display = 'block';
+            } else {
+                publicEmpty.style.display = 'none';
+                publicWorks.forEach((work, index) => {
+                    const workItem = createWorkItem(work, index, false);
+                    publicGallery.appendChild(workItem);
+                });
+            }
+        }
+
+        // Update user's works gallery
+        function updateMyWorksGallery() {
+            if (!currentUser) return;
+
+            const myWorksGallery = document.getElementById('my-works-gallery');
+            const myWorksEmpty = document.getElementById('my-works-empty');
+            
+            myWorksGallery.innerHTML = '';
+            myWorksGallery.appendChild(myWorksEmpty);
+
+            const userWorks = works.filter(work => work.userId === currentUser.id);
+            
+            if (userWorks.length === 0) {
+                myWorksEmpty.style.display = 'block';
+            } else {
+                myWorksEmpty.style.display = 'none';
+                userWorks.forEach((work, index) => {
+                    const actualIndex = works.findIndex(w => w.id === work.id);
+                    const workItem = createWorkItem(work, actualIndex, true);
+                    myWorksGallery.appendChild(workItem);
+                });
+            }
+        }
+
+        // Create work item for gallery
+        function createWorkItem(work, index, showDelete = false) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'gallery-item';
+            
+            let mediaElement;
+            if (work.type === 'animation') {
+                mediaElement = document.createElement('video');
+                mediaElement.controls = true;
+                mediaElement.src = work.fileUrl;
+            } else {
+                mediaElement = document.createElement('img');
+                mediaElement.src = work.fileUrl;
+                mediaElement.alt = work.title;
+            }
+            
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'item-info';
+            
+            const privacyClass = work.privacy === 'public' ? 'privacy-public' : 'privacy-private';
+            const privacyText = work.privacy === 'public' ? 'Public' : 'Private';
+            
+            infoDiv.innerHTML = `
+                <h3>${work.title}</h3>
+                <p>${work.description}</p>
+                <div class="item-meta">
+                    <span>By ${work.username}</span>
+                    <span class="privacy-badge ${privacyClass}">${privacyText}</span>
+                </div>
+                <p><small>Uploaded: ${new Date(work.timestamp).toLocaleDateString()}</small></p>
+                ${showDelete ? `<button class="delete-btn" onclick="deleteWork(${index})">Delete</button>` : ''}
+            `;
+            
+            itemDiv.appendChild(mediaElement);
+            itemDiv.appendChild(infoDiv);
+            
+            return itemDiv;
+        }
+
+        // Handle signup
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('signup-username').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            if (users[username]) {
+                showNotification('Username already exists', 'error');
+                return;
+            }
+
+            // Create user
+            const userId = Date.now().toString();
+            users[username] = {
+                id: userId,
+                username: username,
+                password: password // In real app, hash this!
+            };
+
+            localStorage.setItem('users', JSON.stringify(users));
+            showNotification('Account created successfully! Please login.');
+            document.getElementById('signup-form').reset();
+            showLogin();
+        });
+
+        // Handle login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const user = users[username];
+            
+            if (!user || user.password !== password) {
+                showNotification('Invalid username or password', 'error');
+                return;
+            }
+
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showNotification(`Welcome back, ${username}!`);
+            updateUI();
+            updateMyWorksGallery();
+            document.getElementById('login-form').reset();
+        });
+
+        // Handle upload
+        document.getElementById('upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                showNotification('Please login to upload content', 'error');
+                return;
+            }
+
+            const workType = document.getElementById('work-type').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const privacy = document.querySelector('input[name="privacy"]:checked').value;
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+            
+            if (!workType || !title || !file) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            // Check file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('File size must be less than 10MB', 'error');
+                return;
+            }
+
+            // Check file type
+            const validAnimationTypes = ['video/mp4', 'video/webm'];
+            const validComicTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            
+            if (workType === 'animation' && !validAnimationTypes.includes(file.type)) {
+                showNotification('Please upload a valid video file (MP4 or WebM)', 'error');
+                return;
+            }
+            
+            if (workType === 'comic' && !validComicTypes.includes(file.type)) {
+                showNotification('Please upload a valid image file (JPG, PNG, or WebP)', 'error');
+                return;
+            }
+
+            // Create file URL
+            const fileUrl = URL.createObjectURL(file);
+            
+            // Create work object
+            const work = {
+                id: Date.now().toString(),
+                type: workType,
+                title,
+                description,
+                fileUrl,
+                privacy,
+                userId: currentUser.id,
+                username: currentUser.username,
+                timestamp: Date.now(),
+                fileName: file.name
+            };
+
+            // Add to works array
+            works.push(work);
+            localStorage.setItem('works', JSON.stringify(works));
+
+            // Update galleries
+            if (privacy === 'public') {
+                updatePublicGallery();
+            }
+            updateMyWorksGallery();
+            
+            // Show success message
+            showNotification(`${workType.charAt(0).toUpperCase() + workType.slice(1)} uploaded successfully!`);
+            
+            // Reset form
+            document.getElementById('upload-form').reset();
+            document.getElementById('file-preview').innerHTML = '';
+        });
+
+        // Delete work
+        function deleteWork(index) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                // Revoke object URL to free memory
+                URL.revokeObjectURL(works[index].fileUrl);
+                works.splice(index, 1);
+                localStorage.setItem('works', JSON.stringify(works));
+                
+                updatePublicGallery();
+                updateMyWorksGallery();
+                showNotification('Item deleted successfully');
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showNotification('Logged out successfully');
+            updateUI();
+            initGalleries();
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
             }, 3000);
         }
 
@@ -463,4 +1509,4 @@
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
-  </html>
+</html> 
